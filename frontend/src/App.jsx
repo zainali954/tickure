@@ -16,7 +16,7 @@ import AdminPanel from './features/admin/AdminDashboard';
 import { setNavigate } from './utils/NavigationService';
 import { clearNotification } from './app/slices/notificationSlice';
 
-import './app.css'
+import './App.css'
 import { AnimatePresence } from 'motion/react';
 import ConfirmationModal from './components/ConfirmationModal';
 
