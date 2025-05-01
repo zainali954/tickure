@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+/* Base scrollbar shape */
+.scrollbar-base::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollbar-base::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+}
+
+/* LIGHT THEME: default styling */
+.scrollbar-base::-webkit-scrollbar-thumb {
+  background-color: #d4d4d8; /* zinc-300 */
+}
+
+.scrollbar-base::-webkit-scrollbar-track {
+  background-color: #f4f4f5; /* zinc-100 */
+}
+
+/* DARK THEME: when parent has class 'dark' */
+.dark .scrollbar-base::-webkit-scrollbar-thumb {
+  background-color: #52525b; /* zinc-600 */
+}
+
+.dark .scrollbar-base::-webkit-scrollbar-track {
+  background-color: #27272a; /* zinc-800 */
+}
+
