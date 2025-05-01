@@ -4,11 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setTitle, setDescription, setSelectedLabels, setPriority, setStartDate, setDueDate, setTaskMode, setTaskId, clearTaskForm, updateLabelInTasks, addSubTask, toggleSubTaskCompletion, removeSubTask, setSubTaskTitle, openTaskModal, closeTaskModal, toggleSubTask, updateTask, setSubTasks, pinTask } from "../app/slices/taskSlice";
 import { openForm } from "../app/slices/uiSlice";
 import { formatDateInfo } from "../utils/formatDate";
-<<<<<<< HEAD
-import calculateTaskProgress from "../utils/calculateTaskProgress.js";
-=======
 import calculateTaskProgress from "../utils/calculateTaskProgress";
->>>>>>> eac8e30ee9223f80c6b8f0cbb98ecf8b24ff0464
 import { format, parseISO } from "date-fns";
 import { showConfirmModal } from "../app/slices/confirmationModalSlice";
 import { motion } from "motion/react";
