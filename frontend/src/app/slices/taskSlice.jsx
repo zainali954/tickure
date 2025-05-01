@@ -17,7 +17,7 @@ export const updateTask = createThunk("data/updateTask", ({ taskId, data }) => a
 export const deleteTask = createThunk("data/deleteTask", (id) => apiClient.delete(`/tasks/${id}`));
 export const pinTask = createThunk("data/pinTask", ({id, isPinned}) => apiClient.put(`/tasks/${id}`, {isPinned}));
 export const toggleSubTask = createThunk("tasks/toggleSubTask", ({ taskId, subTaskId }) => apiClient.put(`/tasks/${taskId}/subTasks/${subTaskId}`))
-export const fetchCurrentMonthTasks = createThunk("tasks/currentMonthTasks", (url) => apiClient.get(`/tasks/${url}`))
+export const fetchCurrentMonthTasks = createThunk("tasks/currentMonthTasks", (url) => apiClient.get(`/tasks${url}`))
 
 
 // Initial state
