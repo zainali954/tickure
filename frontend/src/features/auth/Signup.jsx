@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { signup } from '../../app/slices/authSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import useGoogleAuth from '../../hooks/useGoogleAuth';
+import { v4 as uuidv4 } from 'uuid';
 
 const Signup = () => {
   const { loginWithGoogle } = useGoogleAuth();
@@ -21,7 +22,12 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(signup({ name, email, password }));
+    let deviceId = localStorage.getItem('deviceId');
+    if (!deviceId) {
+      deviceId = deviceId = uuidv4();
+      localStorage.setItem('deviceId', deviceId);
+    }
+    dispatch(signup({ name, email, password, deviceId }));
   };
 
   return (

@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import createThunk from '../../utils/createThunk';
 import apiClient from '../../services/apiClient';
 import handleAsyncCases from '../../utils/handleAsync';
+import { v4 as uuidv4 } from 'uuid';
 
 // Retrieve user from localStorage
 const storedUser = localStorage.getItem('user');
@@ -10,11 +11,11 @@ const user = storedUser && storedUser !== 'undefined' ? JSON.parse(storedUser) :
 // Initial state
 const initialState = {
   user: user ? user : null,
-  isLoading:false
+  isLoading: false
 };
 export const signup = createThunk('auth/signup', (data) => apiClient.post('auth/signup', data))
 export const login = createThunk('auth/login', (data) => apiClient.post('auth/login', data))
-export const logout = createThunk('auth/logout', (deviceId) => apiClient.post('auth/logout', {deviceId}))
+export const logout = createThunk('auth/logout', (deviceId) => apiClient.post('auth/logout', { deviceId }))
 export const verifyEmail = createThunk('auth/verifyEmail', (token) => apiClient.post(`auth/verify?token=${token}`))
 export const resendLink = createThunk('auth/resendLink', () => apiClient.post(`auth/resend-link`))
 
@@ -31,18 +32,23 @@ export const updatePassword = createThunk('auth/updatePassword', ({ currentPassw
 export const googleLogin = createAsyncThunk(
   'auth/googleLogin',
   async (code, thunkAPI) => {
-      try {
-          const response = await  apiClient.post(`auth/google-login`, { code });;
-          if (response.data.success) {
-              return response.data.data;  
-          } else {
-              return thunkAPI.rejectWithValue(response.data.message);
-          }
-      } catch (error) {
-          
-          const message = errorMessageHandler(error)
-          return thunkAPI.rejectWithValue(message);
+    try {
+      let deviceId = localStorage.getItem('deviceId');
+      if (!deviceId) {
+        deviceId = deviceId = uuidv4();
+        localStorage.setItem('deviceId', deviceId);
       }
+      const response = await apiClient.post(`auth/google-login`, { code, deviceId });;
+      if (response.data.success) {
+        return response.data.data;
+      } else {
+        return thunkAPI.rejectWithValue(response.data.message);
+      }
+    } catch (error) {
+
+      const message = errorMessageHandler(error)
+      return thunkAPI.rejectWithValue(message);
+    }
   }
 );
 // Authentication slice
@@ -72,8 +78,8 @@ export const authSlice = createSlice({
       localStorage.setItem('user-email', JSON.stringify(action.meta.arg))
     })
     handleAsyncCases(builder, resetPassword, (state, action) => { })
-    handleAsyncCases(builder, updateName, (state, action) => { 
-      state.user= action.payload
+    handleAsyncCases(builder, updateName, (state, action) => {
+      state.user = action.payload
     })
     handleAsyncCases(builder, updatePassword, (state, action) => { })
     handleAsyncCases(builder, googleLogin, (state, action) => {

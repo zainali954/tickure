@@ -11,7 +11,7 @@ import jwt from 'jsonwebtoken'
 import axios from 'axios'
 
 const signup = asyncHandler(async (req, res) => {
-    const { name, email, password } = req.body;
+    const { name, email, password, deviceId } = req.body;
 
     const existingUser = await User.findOne({ email })
     if (existingUser) {
@@ -113,7 +113,7 @@ const login = asyncHandler(async (req, res) => {
 
 
 const googleLogin = asyncHandler(async (req, res) => {
-    const { code } = req.body;
+    const { code, deviceId } = req.body;
 
     if (!code) {
         throw new apiError(400, "Authorization code is required.")
