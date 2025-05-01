@@ -20,6 +20,8 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));  // Handles preflight requests
+console.log('FRONTEND_URL:', process.env.FRONTEND_URL);
 app.use(express.json());
 app.use(cookieParser())
 
