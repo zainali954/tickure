@@ -1,9 +1,11 @@
 import express from 'express'
 import verifyAuth from '../middlewares/verifyAuth.js';
-import { banUser, deleteUser, getAllUsers, searchUsers, userStats, verifyUser } from '../controllers/user.controller.js';
+import { banUser, deleteUser, getAllUsers, searchUsers, userStats, verifyUser, getCurrentUserDetails } from '../controllers/user.controller.js';
 import verifyAdmin from '../middlewares/verifyAdmin.js';
 
 const adminUserRouter = express.Router()
+export const userRouter = express.Router()
+userRouter.get("/", verifyAuth, getCurrentUserDetails)
 
 // admin
 adminUserRouter.get('/', verifyAuth, verifyAdmin, getAllUsers)

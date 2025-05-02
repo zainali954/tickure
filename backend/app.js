@@ -10,6 +10,7 @@ import labelRoutes from './routes/labels.routes.js'
 import taskRoutes from './routes/task.routes.js'
 import adminUserRoutes from './routes/user.routes.js'
 import statsRoutes from './routes/stats.routes.js'
+import { userRouter } from './routes/user.routes.js'
 
 // CORS Configuration
 const corsOptions = {
@@ -21,7 +22,6 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));  // Handles preflight requests
-console.log('FRONTEND_URL:', process.env.FRONTEND_URL);
 app.use(express.json());
 app.use(cookieParser())
 
@@ -29,7 +29,7 @@ app.use('/api/v1/auth', authRoutes)
 app.use('/api/v1/categories', categoryRoutes)
 app.use('/api/v1/labels', labelRoutes)
 app.use('/api/v1/tasks', taskRoutes)
-
+app.use('/api/v1/user', userRouter)
 app.use("/api/v1/admin/users", adminUserRoutes)
 app.use("/api/v1/admin/stats", statsRoutes)
 app.post('*', (req, res)=>{

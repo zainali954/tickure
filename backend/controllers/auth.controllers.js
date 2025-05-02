@@ -208,16 +208,12 @@ const logout = asyncHandler(async (req, res) => {
     }
 
     const userId = payload.id;
-    const user = await User.findById(userId);
-    if (!user) {
-        // User no longer exists, but we can still return success
-        return apiResponse.success(res, 'User logged out successfully', {}, 200);
-    }
-
     // Remove that device’s session
-    user.sessions = user.sessions.filter((s) => s.deviceId !== deviceId);
-    await user.save();
-
+    await User.updateOne(
+        { _id: userId },
+        { $pull: { sessions: { deviceId } } }
+      );
+      
     return apiResponse.success(res, 'User logged out successfully', {}, 200);
 });
 

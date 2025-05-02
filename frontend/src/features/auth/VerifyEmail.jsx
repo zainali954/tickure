@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { resendLink, verifyEmail } from '../../app/slices/authSlice';
+import { fetchUserDetails, resendLink, verifyEmail } from '../../app/slices/authSlice';
 
 const RESEND_TIMEOUT = 60;
 
@@ -44,6 +44,9 @@ const VerifyEmail = () => {
     }
   }, [dispatch, user, navigate]);
 
+  const refresh = ()=>{
+    dispatch(fetchUserDetails())
+  }
   // Handle resend email link
   const handleResend = async () => {
     if (timer === 0) {
@@ -86,12 +89,18 @@ const VerifyEmail = () => {
         )}
 
         {/* "Go to Home Page" Button */}
-        <div className="flex justify-center mt-16">
+        <div className="flex justify-center mt-16 gap-2">
           <button
             onClick={() => navigate('/')}
             className="py-2 px-4 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-md transition"
           >
             Go to Home Page
+          </button>
+          <button
+            onClick={refresh}
+            className="py-2 px-4 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-md transition"
+          >
+            Refresh
           </button>
         </div>
       </div>

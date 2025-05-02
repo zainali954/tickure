@@ -19,6 +19,8 @@ export const logout = createThunk('auth/logout', (deviceId) => apiClient.post('a
 export const verifyEmail = createThunk('auth/verifyEmail', (token) => apiClient.post(`auth/verify?token=${token}`))
 export const resendLink = createThunk('auth/resendLink', () => apiClient.post(`auth/resend-link`))
 
+export const fetchUserDetails = createThunk('auth/fetchUserDetails', ()=>apiClient.get("/user"))
+
 export const forgotPassword = createThunk('auth/forgotPassword', (email) => apiClient.post('auth/forgot-password', { email }))
 export const resetPassword = createThunk('auth/resetPassword', (data) => {
   const email = JSON.parse(localStorage.getItem("user-email"))
@@ -86,6 +88,11 @@ export const authSlice = createSlice({
       state.user = action.payload || null;
       localStorage.setItem('user', JSON.stringify(action.payload))
     })
+    handleAsyncCases(builder, fetchUserDetails, (state, action) => {
+      state.user = action.payload || null;
+      localStorage.setItem('user', JSON.stringify(action.payload))
+    })
+
   },
 });
 

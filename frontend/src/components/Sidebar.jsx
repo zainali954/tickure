@@ -14,9 +14,9 @@ const Sidebar = ({ isMenuHidden, toggleMenu, handleLogout }) => {
   const dispatch = useDispatch()
   return (
     <aside
-      className={`transition-all duration-1000 fixed md:block ${
+      className={`transition-all duration-300 fixed md:block ${
         isMenuHidden ? 'hidden' : ''
-      } border-r border-gray-200 bg-white dark:bg-zinc-950 dark:border-zinc-700 shadow-lg p-4 w-full sm:w-64 h-screen flex flex-col`}
+      } border-r border-gray-200 bg-white z-50 dark:bg-zinc-950 dark:border-zinc-700 shadow-lg p-4 w-full sm:w-64 h-screen flex flex-col`}
     >
       {/* Sidebar Heading */}
       <div className="flex justify-between items-center pt-2 text-black dark:text-gray-200">
@@ -64,7 +64,8 @@ const Navlink = ({to, title}) => {
         `w-full p-3 text-sm rounded-md flex items-center font-medium 
                 ${isActive ? 'bg-zinc-50 dark:bg-zinc-800 dark:text-gray-300 border border-purple-200 dark:border-purple-900 ' : ' text-zinc-800 dark:text-zinc-200'} 
                 hover:bg-zinc-200 dark:hover:bg-zinc-700`
-      }>
+      }
+      >
         {title}
       </NavLink>
     </li>

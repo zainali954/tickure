@@ -5,6 +5,13 @@ import asyncHandler from "../utils/asyncHandler.js";
 import mongoose from "mongoose";
 import User from "../models/userModel.js"
 
+export const getCurrentUserDetails = asyncHandler(async(req, res)=>{
+    const user = await User.findById(req.user_id)
+
+    apiResponse.success(res, "Fetched successfully!", user, 200)
+
+})
+
 export const getAllUsers = asyncHandler(async (req, res) => {
     const users = await User.find().select("-password -refreshToken").sort({ createdAt: -1 });
 
